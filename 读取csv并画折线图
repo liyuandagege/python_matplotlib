@@ -1,0 +1,59 @@
+# def print_hi(name):
+#     # Use a breakpoint in the code line below to debug your script.
+#     print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import matplotlib.pyplot as plt
+import numpy as np
+import csv
+def two_picture(filename,filename_self, pro):
+    # data = csv.reader(open(filename)) # 标准的
+    random_number = 1000
+    x = []
+    x = np.zeros(random_number)
+    y = np.zeros(random_number)
+    x_self = np.zeros(random_number)
+    y_self = np.zeros(random_number)
+    i = 0
+    with open(filename, newline='')  as f:
+        reader = csv.reader(f)
+        for row in reader:
+            # print(row)
+            #x[i], y[i] = row.split(',')
+            y[i], x[i] = row # y是出现的次数， x是随机数的值
+            i = i + 1
+    i = 0
+    with open(filename_self, newline='')  as f: # f是字符串，需要split
+        reader = csv.reader(f) # reader 是 list
+        for row in reader:
+            #x_self[i], y_self[i] = row.split(',')
+            y_self[i], x_self[i] = row   # y是出现的次数， x是随机数的值
+            i = i + 1
+    #         print(x_self[i], y_self[i])
+    # print(y)
+    # x = delete_zero(x)
+    # x_self = delete_zero(x_self)
+    # y = delete_zero(y)
+    # y_self = delete_zero(y_self)
+    l1, = plt.plot(x[8:] , y[8:], label='pascal_distribution')
+    l2, = plt.plot(x[8:] , y_self[8:], color = 'red',linestyle='--' ,label = 'my_pascal_distribution')
+    plt.legend(loc='upper right')
+    #plt.xlim((-5, 5))
+    plt.ylim((0, 800))
+    plt.xlabel('random number')
+    plt.ylabel('Number of corresponding intervals')
+    plt.text(max(x)*0.7,max(y)/2 , r'probility =' + str('%.2f'%(pro*0.1)) +"\n  "+"r = 8",
+             fontdict={'size': 16, 'color': 'k'})
+    plt.savefig('H:\\数学大作业\\picture\\'+str(pro)+'.png')
+    plt.show()
+# def delete_zero(number):
+#     index = np.argwhere(number == 0)
+#     number = np.delete(number, index)
+#     return number
+
+
+# Press the green button in the gutter to run the script.
+if __name__ == '__main__':
+    for i in range(1, 10):
+        filename = 'H:\\math_bigpy\\' + str(i) + '.csv'
+        filename_self = 'H:\\math_bigpy\\' + str(i) + 'self.csv'
+        two_picture(filename, filename_self, i)
+# See PyCharm help at https://www.jetbrains.com/help/pycharm/
